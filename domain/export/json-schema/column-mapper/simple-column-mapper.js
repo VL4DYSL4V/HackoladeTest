@@ -39,12 +39,19 @@ const SimpleModelTypeToJsonSchemaType = Object.freeze({
         minimum: NumberConstraint.MIN_UNSIGNED_INTEGER,
         maximum: NumberConstraint.MAX_UNSIGNED_INTEGER,
     }),
-    [ColumnTypes.DECIMAL]: (type) => {
-    },
-    [ColumnTypes.DOUBLE]: (type) => {
-    },
-    [ColumnTypes.FLOAT]: (type) => {
-    },
+    [ColumnTypes.DECIMAL]: () => ({
+        type: JsonSchemaTypes.NUMBER,
+    }),
+    [ColumnTypes.DOUBLE]: () => ({
+        type: JsonSchemaTypes.NUMBER,
+        minimum: NumberConstraint.MIN_DOUBLE,
+        maximum: NumberConstraint.MAX_DOUBLE,
+    }),
+    [ColumnTypes.FLOAT]: () => ({
+        type: JsonSchemaTypes.NUMBER,
+        minimum: NumberConstraint.MIN_FLOAT,
+        maximum: NumberConstraint.MAX_FLOAT,
+    }),
     [ColumnTypes.BLOB]: () => ({
         type: JsonSchemaTypes.ARRAY,
         items: {
