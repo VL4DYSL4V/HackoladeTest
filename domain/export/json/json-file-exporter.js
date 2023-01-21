@@ -31,14 +31,41 @@ export class JsonFileExporter extends Exporter{
 
     /**
      * @param data {Object}
+     * @throws Error if typeof data === 'function'
+     * @return data if data is primitive;
+     *      data with '$schema' property if plain Object;
+     *      if data was an array, returns subarray of plain objects with '$schema' property;
+     */
+    #buildOutObject(data) {
+        const validationSchemaUrl = `https://json-schema.org/draft-0${this.#jsonSchemaDraftVersion}/schema#`;
+        let out = data;
+        if (typeof data === 'function') {
+            throw new Error('Cannot serialize function');
+        }
+        if (typeof data === 'object') {
+            if (Array.isArray(data)) {
+                out = data
+                    .filter(e => typeof e === 'object' && !Array.isArray(e))
+                    .map(o => ({
+                        "$schema": validationSchemaUrl,
+                        ...o,
+                    }));
+            } else {
+                out = {
+                    "$schema": validationSchemaUrl,
+                    ...data
+                }
+            }
+        }
+        return out;
+    }
+
+    /**
+     * @param data {Object}
      */
     async export(data) {
-        const validationSchemaUrl = `https://json-schema.org/draft-0${this.#jsonSchemaDraftVersion}/schema#`;
-        const out = {
-            "$schema": validationSchemaUrl,
-            data
-        }
         try {
+            const out = this.#buildOutObject(data);
             const content = JSON.stringify(out, null, 2);
             fs.writeFileSync(this.#outFileName, content);
         } catch (err) {

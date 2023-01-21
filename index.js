@@ -10,6 +10,7 @@ const main = async () => {
 
         const exporter = await ExportFactory.getExporter(ExportConfig.format);
         await exporter.export(data);
+        console.log('Done!')
     } catch (e) {
         console.log('Unknown error happened: ', e);
     } finally {

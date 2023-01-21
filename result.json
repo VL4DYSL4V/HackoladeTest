@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft-04/schema#",
+  "tables": [
+    {
+      "tableName": "amenities_by_room",
+      "columns": [
+        {
+          "name": "room_number",
+          "columnType": "SHORT"
+        }
+      ]
+    },
+    {
+      "tableName": "available_rooms_by_hotel_date",
+      "columns": [
+        {
+          "name": "date",
+          "columnType": "DATE"
+        },
+        {
+          "name": "is_available",
+          "columnType": "BOOLEAN"
+        },
+        {
+          "name": "room_number",
+          "columnType": "SHORT"
+        }
+      ]
+    },
+    {
+      "tableName": "hotels",
+      "columns": []
+    },
+    {
+      "tableName": "hotels_by_poi",
+      "columns": []
+    },
+    {
+      "tableName": "pois_by_hotel",
+      "columns": []
+    }
+  ]
+}
