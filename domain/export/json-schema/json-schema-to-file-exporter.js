@@ -30,33 +30,54 @@ export class JsonSchemaToFileExporter extends Exporter{
     }
 
     /**
-     * @param data {DatabaseModel}
-     * @throws Error if typeof data === 'function'
-     * @return data if data is primitive;
-     *      data with '$schema' property if plain Object;
-     *      if data was an array, returns subarray of plain objects with '$schema' property;
+     * @return string
      */
-    #buildOutObject(data) {
-        const validationSchemaUrl = `https://json-schema.org/draft-0${this.#jsonSchemaDraftVersion}/schema#`;
-        let out = data;
-        if (typeof data === 'function') {
-            throw new Error('Cannot serialize function');
-        }
-        if (typeof data === 'object') {
-            out = {
-                "$schema": validationSchemaUrl,
-                ...data
-            }
-        }
-        return out;
+    #getValidationSchemaUrl(){
+        return `https://json-schema.org/draft-0${this.#jsonSchemaDraftVersion}/schema#`;
     }
 
     /**
-     * @param data {Object}
+     * @param customTypes {Array<CustomTypeEntity>}
+     * @return Array<Promise<Object>>
+     * */
+    #startTransformingCustomTypesToJsonSchema(customTypes) {
+        return customTypes.map(c => Promise.resolve(c));
+    }
+
+    /**
+     * @param tables {Array<TableEntity>}
+     * @return Array<Promise<Object>>
+     * */
+    #startTransformingTablesToJsonSchema(tables) {
+        return tables.map(t => Promise.resolve(t));
+    }
+
+    /**
+     * @param data {DatabaseModel}
+     * @throws Error if typeof data === 'function'
+     * @return Promise<Array<Object>>
+     */
+    async #buildOutObject(data) {
+        if (typeof data !== 'object' || Array.isArray(data)) {
+            throw new Error('Can only serialize plain JS objects');
+        }
+        const customTypesAsJsonSchemaPromises = this.#startTransformingCustomTypesToJsonSchema(
+            data.customTypes);
+        const tablesAsJsonSchemaPromises = this.#startTransformingTablesToJsonSchema(
+            data.tables);
+
+        return await Promise.all([
+            ...customTypesAsJsonSchemaPromises,
+            ...tablesAsJsonSchemaPromises,
+        ]);
+    }
+
+    /**
+     * @param data {DatabaseModel}
      */
     async export(data) {
         try {
-            const out = this.#buildOutObject(data);
+            const out = await this.#buildOutObject(data);
             const content = JSON.stringify(out, null, 2);
             fs.writeFileSync(this.#outFileName, content);
         } catch (err) {
