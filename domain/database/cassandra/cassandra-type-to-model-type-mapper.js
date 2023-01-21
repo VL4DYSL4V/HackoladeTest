@@ -8,7 +8,6 @@ const SimpleCassandraTypeToModelColumnType = Object.freeze({
     'decimal': ColumnTypes.DECIMAL,
     'double': ColumnTypes.DOUBLE,
     'float': ColumnTypes.FLOAT,
-    'inet': ColumnTypes.INET,
     'int': ColumnTypes.INTEGER,
     'smallint': ColumnTypes.SHORT,
     'time': ColumnTypes.TIME,
@@ -27,7 +26,9 @@ const ComplexCassandraTypeToModelColumnType = Object.freeze({
     // 'set': ,
     // 'tuple': ,
     // 'frozen': ,
-    // // Can be parsed into other formats
+    // // Require samples, can be ipv4 or ipv6
+    // 'inet': ,
+    // // Require samples, can be parsed into other formats
     // 'text': ,
     // 'varchar': ,
     // 'ascii': ColumnTypes.TEXT,

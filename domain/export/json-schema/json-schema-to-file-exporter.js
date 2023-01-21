@@ -2,6 +2,7 @@ import {Exporter} from "../exporter.js";
 import * as fs from "fs";
 import {JsonSchemaCustomType} from "./dto/json-schema-custom-type.js";
 import {JsonSchemaTable} from "./dto/json-schema-table.js";
+import {ColumnMapper} from "./column-mapper/index.js";
 
 export class JsonSchemaToFileExporter extends Exporter{
 
@@ -43,9 +44,10 @@ export class JsonSchemaToFileExporter extends Exporter{
      * @return Promise<Array<JsonSchemaCustomType>>
      * */
     async #startTransformingCustomTypesToJsonSchema(customTypes) {
+        const schema = this.#getValidationSchemaUrl();
         return customTypes.map((c) => {
-            const out = new JsonSchemaCustomType(c.name);
-            out.properties = [];
+            const out = new JsonSchemaCustomType(schema, c.name);
+            out.properties = c.columns.map(col => ColumnMapper.mapColumn(col));
             return out;
         });
     }
@@ -55,9 +57,10 @@ export class JsonSchemaToFileExporter extends Exporter{
      * @return Promise<Array<JsonSchemaTable>>
      * */
     async #startTransformingTablesToJsonSchema(tables) {
+        const schema = this.#getValidationSchemaUrl();
         return tables.map((t) => {
-            const out = new JsonSchemaTable(t.name);
-            out.properties = [];
+            const out = new JsonSchemaTable(schema, t.name);
+            out.properties = c.columns.map(col => ColumnMapper.mapColumn(col));
             return out;
         });
     }
@@ -76,10 +79,10 @@ export class JsonSchemaToFileExporter extends Exporter{
         const tablesAsJsonSchemaPromise = this.#startTransformingTablesToJsonSchema(
             data.tables);
 
-        return await Promise.all([
+        return (await Promise.all([
             customTypesAsJsonSchemaPromise,
             tablesAsJsonSchemaPromise,
-        ]);
+        ])).flatMap(arr => arr);
     }
 
     /**

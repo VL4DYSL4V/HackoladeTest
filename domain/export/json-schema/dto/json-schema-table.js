@@ -1,30 +1,43 @@
 export class JsonSchemaTable {
 
     /**
+     * @field $schema {string}
+     * */
+    $schema;
+
+    /**
      * @field id {string}
      * */
     id;
 
     /**
-     * @field name {string}
+     * @field title {string}
      * */
-    name;
+    title;
 
     /**
      * @field type {'object'}
      * */
     type = 'object';
 
+    /**
+     * @field type {Array<Object>}
+     * */
     properties = [];
 
     /**
+     * @param schema {string}
      * @param name {string}
      * */
-    constructor(name) {
+    constructor(schema, name) {
         if (!name) {
-            throw new Error('Json schema table must have a name');
+            throw new Error('JSON schema table must have a name');
         }
-        this.name = String(name);
+        if (!schema) {
+            throw new Error('Specify JSON schema draft URL');
+        }
+        this.$schema = String(schema);
+        this.title = String(name);
         this.id = `/${name}`;
     }
 

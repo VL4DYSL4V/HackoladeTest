@@ -1,62 +1,53 @@
 [
-  [
-    {
-      "name": "address",
-      "columns": []
-    },
-    {
-      "name": "visitor",
-      "columns": [
-        {
-          "name": "id",
-          "columnType": "UNSIGNED_INT",
-          "nullable": true
-        }
-      ]
-    }
-  ],
-  [
-    {
-      "name": "amenities_by_room",
-      "columns": [
-        {
-          "name": "room_number",
-          "columnType": "SHORT",
-          "nullable": true
-        }
-      ]
-    },
-    {
-      "name": "available_rooms_by_hotel_date",
-      "columns": [
-        {
-          "name": "date",
-          "columnType": "DATE",
-          "nullable": true
-        },
-        {
-          "name": "is_available",
-          "columnType": "BOOLEAN",
-          "nullable": true
-        },
-        {
-          "name": "room_number",
-          "columnType": "SHORT",
-          "nullable": true
-        }
-      ]
-    },
-    {
-      "name": "hotels",
-      "columns": []
-    },
-    {
-      "name": "hotels_by_poi",
-      "columns": []
-    },
-    {
-      "name": "pois_by_hotel",
-      "columns": []
-    }
-  ]
+  {
+    "$schema": "https://json-schema.org/draft-04/schema#",
+    "id": "/address",
+    "name": "address",
+    "type": "object",
+    "properties": []
+  },
+  {
+    "$schema": "https://json-schema.org/draft-04/schema#",
+    "id": "/visitor",
+    "name": "visitor",
+    "type": "object",
+    "properties": [
+      {}
+    ]
+  },
+  {
+    "$schema": "https://json-schema.org/draft-04/schema#",
+    "id": "/amenities_by_room",
+    "name": "amenities_by_room",
+    "type": "object",
+    "properties": []
+  },
+  {
+    "$schema": "https://json-schema.org/draft-04/schema#",
+    "id": "/available_rooms_by_hotel_date",
+    "name": "available_rooms_by_hotel_date",
+    "type": "object",
+    "properties": []
+  },
+  {
+    "$schema": "https://json-schema.org/draft-04/schema#",
+    "id": "/hotels",
+    "name": "hotels",
+    "type": "object",
+    "properties": []
+  },
+  {
+    "$schema": "https://json-schema.org/draft-04/schema#",
+    "id": "/hotels_by_poi",
+    "name": "hotels_by_poi",
+    "type": "object",
+    "properties": []
+  },
+  {
+    "$schema": "https://json-schema.org/draft-04/schema#",
+    "id": "/pois_by_hotel",
+    "name": "pois_by_hotel",
+    "type": "object",
+    "properties": []
+  }
 ]

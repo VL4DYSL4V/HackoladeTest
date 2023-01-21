@@ -1,5 +1,5 @@
 export const ColumnTypes = Object.freeze({
-    TEXT: 'TEXT',
+//  SIMPLE TYPES
     BIG_INTEGER: 'BIG_INTEGER',
     BOOLEAN: 'BOOLEAN',
     DECIMAL: 'DECIMAL',
@@ -13,11 +13,13 @@ export const ColumnTypes = Object.freeze({
     BYTE: 'BYTE',
     TIMESTAMP_WITH_TIMEZONE: 'TIMESTAMP_WITH_TIMEZONE',
     TIMESTAMP_WITHOUT_TIMEZONE: 'TIMESTAMP_WITHOUT_TIMEZONE',
-    INET: 'INET',
     TIME: 'TIME',
     DATE: 'DATE',
     // Array of unsigned numbers (bytes)
     BLOB: 'BLOB',
+//  COMPLEX TYPES
+    INET: 'INET',
+    TEXT: 'TEXT',
     ARRAY: 'ARRAY',
 })
 
