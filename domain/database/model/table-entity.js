@@ -1,20 +1,20 @@
 export class TableEntity {
 
     /**
-     * @field tableName {string}
+     * @field name {string}
      * */
-    tableName;
+    name;
 
     /**
-     * @field keyspaceName {SimpleColumnDto}
+     * @field columns {Array<SimpleColumnDto>}
      * */
     columns = [];
 
     /**
-     * @param tableName {string}
+     * @param name {string}
      * */
-    constructor(tableName) {
-        this.tableName = tableName;
+    constructor(name) {
+        this.name = name;
     }
 
 
@@ -22,7 +22,7 @@ export class TableEntity {
 // CQL data type 	JavaScript type
 //* ascii 	        String
 //* bigint 	        Long
-// blob 	        Buffer
+//  blob 	        Buffer
 //* boolean 	        Boolean
 //* counter 	        Long
 //* date 	        LocalDate
@@ -31,16 +31,16 @@ export class TableEntity {
 //* float 	        Number
 //* inet 	        InetAddress
 //* int 	            Number
-// list 	        Array
-// map 	            Object / ECMAScript 6 Map
-// set 	            Array / ECMAScript 6 Set
+//  list 	        Array
+//  map 	            Object / ECMAScript 6 Map
+//  set 	            Array / ECMAScript 6 Set
 //* smallint 	    Number
-// text 	        String
+//  text 	        String
 //* time 	        LocalTime
 //* timestamp 	    Date
 //* timeuuid 	    TimeUuid
 //* tinyint 	        Number
-// tuple 	        Tuple
+//  tuple 	        Tuple
 //* uuid 	        Uuid
-// varchar 	        String
+//  varchar 	        String
 //* varint 	        Integer

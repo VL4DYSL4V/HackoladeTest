@@ -20,6 +20,19 @@ const SimpleCassandraTypeToModelColumnType = Object.freeze({
     'varint': ColumnTypes.UNSIGNED_INT,
 })
 
+const ComplexCassandraTypeToModelColumnType = Object.freeze({
+    // // Array of stuff
+    // 'blob': ,
+    // 'array': ,
+    // 'map': ,
+    // 'set': ,
+    // 'tuple': ,
+    // 'frozen': ,
+    // // Can be parsed into other formats
+    // 'text': ,
+    // 'varchar': ,
+})
+
 export const SimpleColumnTypes = Object.freeze(new Set(Object.keys(SimpleCassandraTypeToModelColumnType)));
 
 export class CassandraTypeToModelTypeMapper {

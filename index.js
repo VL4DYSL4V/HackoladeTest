@@ -1,4 +1,4 @@
-import {ExportFactory} from "./domain/export/export-factory.js";
+import {ExporterFactory} from "./domain/export/exporter-factory.js";
 import {DatabaseConfig, ExportConfig} from "./config.js";
 import {DatabaseSchemaProviderFactory} from "./domain/database/database-schema-provider-factory.js";
 
@@ -6,9 +6,9 @@ const main = async () => {
     let dbSchemaProvider;
     try {
         dbSchemaProvider = await DatabaseSchemaProviderFactory.getSchemaProvider(DatabaseConfig.dbms);
-        const data = await dbSchemaProvider.getSchema();
+        const data = await dbSchemaProvider.getDatabaseModel();
 
-        const exporter = await ExportFactory.getExporter(ExportConfig.format);
+        const exporter = await ExporterFactory.getExporter(ExportConfig.format);
         await exporter.export(data);
         console.log('Done!')
     } catch (e) {

@@ -2,42 +2,62 @@
   "$schema": "https://json-schema.org/draft-04/schema#",
   "tables": [
     {
-      "tableName": "amenities_by_room",
+      "name": "amenities_by_room",
       "columns": [
         {
           "name": "room_number",
-          "columnType": "SHORT"
+          "columnType": "SHORT",
+          "nullable": true
         }
       ]
     },
     {
-      "tableName": "available_rooms_by_hotel_date",
+      "name": "available_rooms_by_hotel_date",
       "columns": [
         {
           "name": "date",
-          "columnType": "DATE"
+          "columnType": "DATE",
+          "nullable": true
         },
         {
           "name": "is_available",
-          "columnType": "BOOLEAN"
+          "columnType": "BOOLEAN",
+          "nullable": true
         },
         {
           "name": "room_number",
-          "columnType": "SHORT"
+          "columnType": "SHORT",
+          "nullable": true
         }
       ]
     },
     {
-      "tableName": "hotels",
+      "name": "hotels",
       "columns": []
     },
     {
-      "tableName": "hotels_by_poi",
+      "name": "hotels_by_poi",
       "columns": []
     },
     {
-      "tableName": "pois_by_hotel",
+      "name": "pois_by_hotel",
       "columns": []
+    }
+  ],
+  "customTypes": [
+    {
+      "name": "address",
+      "columns": []
+    },
+    {
+      "name": "visitor",
+      "columns": [
+        {
+          "name": "id",
+          "columnType": "UNSIGNED_INT",
+          "nullable": true
+        }
+      ]
     }
   ]
 }

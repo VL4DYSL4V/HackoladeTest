@@ -4,7 +4,7 @@
 export class Exporter {
 
     /**
-     * @param data {Object}
+     * @param data {DatabaseModel}
      * @return {void}
      */
     async export (data) {

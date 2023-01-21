@@ -30,7 +30,7 @@ export class JsonFileExporter extends Exporter{
     }
 
     /**
-     * @param data {Object}
+     * @param data {DatabaseModel}
      * @throws Error if typeof data === 'function'
      * @return data if data is primitive;
      *      data with '$schema' property if plain Object;
@@ -43,18 +43,9 @@ export class JsonFileExporter extends Exporter{
             throw new Error('Cannot serialize function');
         }
         if (typeof data === 'object') {
-            if (Array.isArray(data)) {
-                out = data
-                    .filter(e => typeof e === 'object' && !Array.isArray(e))
-                    .map(o => ({
-                        "$schema": validationSchemaUrl,
-                        ...o,
-                    }));
-            } else {
-                out = {
-                    "$schema": validationSchemaUrl,
-                    ...data
-                }
+            out = {
+                "$schema": validationSchemaUrl,
+                ...data
             }
         }
         return out;

@@ -3,7 +3,7 @@ import {JsonFileExporter} from "./json/json-file-exporter.js";
 import {Exporter} from "./exporter.js";
 import {ExportConfig} from "../../config.js";
 
-export class ExportFactory {
+export class ExporterFactory {
 
     /**
      * @param format {string}

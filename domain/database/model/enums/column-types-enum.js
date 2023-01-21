@@ -16,5 +16,7 @@ export const ColumnTypes = Object.freeze({
     INET: 'INET',
     TIME: 'TIME',
     DATE: 'DATE',
+    BLOB: 'BLOB',
+    ARRAY: 'ARRAY',
 })
 
