@@ -1,5 +1,7 @@
 import {Exporter} from "../exporter.js";
 import * as fs from "fs";
+import {JsonSchemaCustomType} from "./dto/json-schema-custom-type.js";
+import {JsonSchemaTable} from "./dto/json-schema-table.js";
 
 export class JsonSchemaToFileExporter extends Exporter{
 
@@ -38,18 +40,26 @@ export class JsonSchemaToFileExporter extends Exporter{
 
     /**
      * @param customTypes {Array<CustomTypeEntity>}
-     * @return Array<Promise<Object>>
+     * @return Promise<Array<JsonSchemaCustomType>>
      * */
-    #startTransformingCustomTypesToJsonSchema(customTypes) {
-        return customTypes.map(c => Promise.resolve(c));
+    async #startTransformingCustomTypesToJsonSchema(customTypes) {
+        return customTypes.map((c) => {
+            const out = new JsonSchemaCustomType(c.name);
+            out.properties = [];
+            return out;
+        });
     }
 
     /**
      * @param tables {Array<TableEntity>}
-     * @return Array<Promise<Object>>
+     * @return Promise<Array<JsonSchemaTable>>
      * */
-    #startTransformingTablesToJsonSchema(tables) {
-        return tables.map(t => Promise.resolve(t));
+    async #startTransformingTablesToJsonSchema(tables) {
+        return tables.map((t) => {
+            const out = new JsonSchemaTable(t.name);
+            out.properties = [];
+            return out;
+        });
     }
 
     /**
@@ -61,14 +71,14 @@ export class JsonSchemaToFileExporter extends Exporter{
         if (typeof data !== 'object' || Array.isArray(data)) {
             throw new Error('Can only serialize plain JS objects');
         }
-        const customTypesAsJsonSchemaPromises = this.#startTransformingCustomTypesToJsonSchema(
+        const customTypesAsJsonSchemaPromise = this.#startTransformingCustomTypesToJsonSchema(
             data.customTypes);
-        const tablesAsJsonSchemaPromises = this.#startTransformingTablesToJsonSchema(
+        const tablesAsJsonSchemaPromise = this.#startTransformingTablesToJsonSchema(
             data.tables);
 
         return await Promise.all([
-            ...customTypesAsJsonSchemaPromises,
-            ...tablesAsJsonSchemaPromises,
+            customTypesAsJsonSchemaPromise,
+            tablesAsJsonSchemaPromise,
         ]);
     }
 

@@ -1,58 +1,62 @@
 [
-  {
-    "name": "address",
-    "columns": []
-  },
-  {
-    "name": "visitor",
-    "columns": [
-      {
-        "name": "id",
-        "columnType": "UNSIGNED_INT",
-        "nullable": true
-      }
-    ]
-  },
-  {
-    "name": "amenities_by_room",
-    "columns": [
-      {
-        "name": "room_number",
-        "columnType": "SHORT",
-        "nullable": true
-      }
-    ]
-  },
-  {
-    "name": "available_rooms_by_hotel_date",
-    "columns": [
-      {
-        "name": "date",
-        "columnType": "DATE",
-        "nullable": true
-      },
-      {
-        "name": "is_available",
-        "columnType": "BOOLEAN",
-        "nullable": true
-      },
-      {
-        "name": "room_number",
-        "columnType": "SHORT",
-        "nullable": true
-      }
-    ]
-  },
-  {
-    "name": "hotels",
-    "columns": []
-  },
-  {
-    "name": "hotels_by_poi",
-    "columns": []
-  },
-  {
-    "name": "pois_by_hotel",
-    "columns": []
-  }
+  [
+    {
+      "name": "address",
+      "columns": []
+    },
+    {
+      "name": "visitor",
+      "columns": [
+        {
+          "name": "id",
+          "columnType": "UNSIGNED_INT",
+          "nullable": true
+        }
+      ]
+    }
+  ],
+  [
+    {
+      "name": "amenities_by_room",
+      "columns": [
+        {
+          "name": "room_number",
+          "columnType": "SHORT",
+          "nullable": true
+        }
+      ]
+    },
+    {
+      "name": "available_rooms_by_hotel_date",
+      "columns": [
+        {
+          "name": "date",
+          "columnType": "DATE",
+          "nullable": true
+        },
+        {
+          "name": "is_available",
+          "columnType": "BOOLEAN",
+          "nullable": true
+        },
+        {
+          "name": "room_number",
+          "columnType": "SHORT",
+          "nullable": true
+        }
+      ]
+    },
+    {
+      "name": "hotels",
+      "columns": []
+    },
+    {
+      "name": "hotels_by_poi",
+      "columns": []
+    },
+    {
+      "name": "pois_by_hotel",
+      "columns": []
+    }
+  ]
 ]
