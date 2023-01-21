@@ -1,7 +1,7 @@
 import {ColumnTypes} from "../model/enums/column-type-enum.js";
 
 const SimpleCassandraTypeToModelColumnType = Object.freeze({
-    'bigint': ColumnTypes.BIG_INTEGER,
+    'bigint': ColumnTypes.LONG,
     'boolean': ColumnTypes.BOOLEAN,
     'counter': ColumnTypes.LONG,
     'date': ColumnTypes.DATE,

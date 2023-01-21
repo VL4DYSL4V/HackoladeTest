@@ -1,21 +1,20 @@
 export const ColumnTypes = Object.freeze({
 //  SIMPLE TYPES
-    BIG_INTEGER: 'BIG_INTEGER',
-    BOOLEAN: 'BOOLEAN',
-    DECIMAL: 'DECIMAL',
-    DOUBLE: 'DOUBLE',
-    FLOAT: 'FLOAT',
     UUID: 'UUID',
-    UNSIGNED_INT: 'UNSIGNED_INT',
+    BOOLEAN: 'BOOLEAN',
     LONG: 'LONG',
     INTEGER: 'INTEGER',
     SHORT: 'SHORT',
     BYTE: 'BYTE',
+    UNSIGNED_INT: 'UNSIGNED_INT',
+    DECIMAL: 'DECIMAL',
+    DOUBLE: 'DOUBLE',
+    FLOAT: 'FLOAT',
     TIMESTAMP_WITH_TIMEZONE: 'TIMESTAMP_WITH_TIMEZONE',
     TIMESTAMP_WITHOUT_TIMEZONE: 'TIMESTAMP_WITHOUT_TIMEZONE',
     TIME: 'TIME',
     DATE: 'DATE',
-    // Array of unsigned numbers (bytes)
+    // Array of signed bytes
     BLOB: 'BLOB',
 //  COMPLEX TYPES
     INET: 'INET',

@@ -6,16 +6,6 @@ import {NumberConstraint} from "../../../common/enums/number-constraint.js";
 
 // https://json-schema.org/understanding-json-schema/reference/numeric.html?highlight=integer
 
-//     BIG_INTEGER: 'BIG_INTEGER',
-//     DECIMAL: 'DECIMAL',
-//     DOUBLE: 'DOUBLE',
-//     FLOAT: 'FLOAT',
-//     TIMESTAMP_WITH_TIMEZONE: 'TIMESTAMP_WITH_TIMEZONE',
-//     TIMESTAMP_WITHOUT_TIMEZONE: 'TIMESTAMP_WITHOUT_TIMEZONE',
-//     TIME: 'TIME',
-//     DATE: 'DATE',
-//     // Array of unsigned numbers (bytes)
-//     BLOB: 'BLOB',
 const SimpleModelTypeToJsonSchemaType = Object.freeze({
     [ColumnTypes.UUID]: () => ({
         type: JsonSchemaTypes.STRING,
@@ -49,28 +39,27 @@ const SimpleModelTypeToJsonSchemaType = Object.freeze({
         minimum: NumberConstraint.MIN_UNSIGNED_INTEGER,
         maximum: NumberConstraint.MAX_UNSIGNED_INTEGER,
     }),
-    [ColumnTypes.FLOAT]: () => ({
-
+    [ColumnTypes.DECIMAL]: (type) => {
+    },
+    [ColumnTypes.DOUBLE]: (type) => {
+    },
+    [ColumnTypes.FLOAT]: (type) => {
+    },
+    [ColumnTypes.BLOB]: () => ({
+        type: JsonSchemaTypes.ARRAY,
+        items: {
+            type: JsonSchemaTypes.INTEGER,
+            minimum: NumberConstraint.MIN_BYTE,
+            maximum: NumberConstraint.MAX_BYTE,
+        }
     }),
-    [ColumnTypes.INTEGER]: (type) => {
+    [ColumnTypes.TIMESTAMP_WITH_TIMEZONE]: (type) => {
     },
-    [ColumnTypes.INTEGER]: (type) => {
+    [ColumnTypes.TIMESTAMP_WITHOUT_TIMEZONE]: (type) => {
     },
-    [ColumnTypes.INTEGER]: (type) => {
+    [ColumnTypes.DATE]: (type) => {
     },
-    [ColumnTypes.INTEGER]: (type) => {
-    },
-    [ColumnTypes.INTEGER]: (type) => {
-    },
-    [ColumnTypes.INTEGER]: (type) => {
-    },
-    [ColumnTypes.INTEGER]: (type) => {
-    },
-    [ColumnTypes.INTEGER]: (type) => {
-    },
-    [ColumnTypes.INTEGER]: (type) => {
-    },
-    [ColumnTypes.INTEGER]: (type) => {
+    [ColumnTypes.TIME]: (type) => {
     },
 });
 
