@@ -1,3 +1,3 @@
 export const ExportFormat = Object.freeze({
-    JSON: 'json',
+    JSON_SCHEMA: 'json_schema',
 });

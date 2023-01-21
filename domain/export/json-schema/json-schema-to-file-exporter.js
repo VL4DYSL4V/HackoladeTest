@@ -1,7 +1,7 @@
 import {Exporter} from "../exporter.js";
 import * as fs from "fs";
 
-export class JsonFileExporter extends Exporter{
+export class JsonSchemaToFileExporter extends Exporter{
 
     /**
      * @field #jsonSchemaDraftVersion {number}

@@ -70,23 +70,6 @@ export class CassandraDatabaseModelProvider extends DatabaseModelProvider {
         });
     }
 
-    // {
-    // "rows": [
-    //     {
-    //       "keyspace_name": "hotel",
-    //       "type_name": "address",
-    //       "field_names": ["street", "city", "state_or_province", "postal_code", "country"],
-    //       "field_types": ["text", "text", "text", "text", "text"]
-    //     },
-    //     {
-    //       "keyspace_name": "hotel",
-    //       "type_name": "visitor",
-    //       "field_names": ["name", "from_where"],
-    //       "field_types": ["text", "frozen<address>"]
-    //     }
-    //   ]
-    // }
-
     /**
      * @return {Promise<Array<CustomTypeEntity>>}
      * */
@@ -130,14 +113,10 @@ export class CassandraDatabaseModelProvider extends DatabaseModelProvider {
             ...customTypesProcessingPromises,
         ]);
 
-        const out = {
+        return {
             tables,
             customTypes,
-        }
-
-        console.log(JSON.stringify(out, null, 2));
-
-        return out;
+        };
     }
 
     async shutdown() {

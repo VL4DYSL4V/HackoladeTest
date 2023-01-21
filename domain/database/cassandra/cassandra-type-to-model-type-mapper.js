@@ -1,7 +1,6 @@
-import {ColumnTypes} from "../model/enums/column-types-enum.js";
+import {ColumnTypes} from "../model/enums/column-type-enum.js";
 
 const SimpleCassandraTypeToModelColumnType = Object.freeze({
-    'ascii': ColumnTypes.TEXT,
     'bigint': ColumnTypes.BIG_INTEGER,
     'boolean': ColumnTypes.BOOLEAN,
     'counter': ColumnTypes.LONG,
@@ -18,11 +17,11 @@ const SimpleCassandraTypeToModelColumnType = Object.freeze({
     'tinyint': ColumnTypes.BYTE,
     'uuid': ColumnTypes.UUID,
     'varint': ColumnTypes.UNSIGNED_INT,
+    'blob': ColumnTypes.BLOB,
 })
 
 const ComplexCassandraTypeToModelColumnType = Object.freeze({
     // // Array of stuff
-    // 'blob': ,
     // 'array': ,
     // 'map': ,
     // 'set': ,
@@ -31,6 +30,7 @@ const ComplexCassandraTypeToModelColumnType = Object.freeze({
     // // Can be parsed into other formats
     // 'text': ,
     // 'varchar': ,
+    // 'ascii': ColumnTypes.TEXT,
 })
 
 export const SimpleColumnTypes = Object.freeze(new Set(Object.keys(SimpleCassandraTypeToModelColumnType)));

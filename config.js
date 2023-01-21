@@ -18,9 +18,10 @@ export const ExportConfig = Object.freeze({
     // *************************
     // *    Common config   *
     // *************************
-    format: 'json',
+    // Allowed values: json_schema
+    format: 'json_schema',
     // *************************
-    // *  File System config   *
+    // *  Output file config   *
     // *************************
     outFilename: './result.json',
 });
