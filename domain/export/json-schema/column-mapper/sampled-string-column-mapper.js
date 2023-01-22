@@ -62,6 +62,11 @@ export class SampledStringColumnMapper extends BaseColumnMapper {
      * @return Object
      * */
     #recursivelyParseObject(obj) {
+        if (Array.isArray(obj)) {
+            return {
+                type: JsonSchemaTypes.ARRAY
+            }
+        }
         const asJsonSchemaObject = {
             type: JsonSchemaTypes.OBJECT,
             properties: {},
@@ -92,11 +97,7 @@ export class SampledStringColumnMapper extends BaseColumnMapper {
                 };
             }
             if (typeof value === 'object') {
-                if (!Array.isArray(value)) {
-                    asJsonSchemaObject.properties[key] = this.#recursivelyParseObject(value);
-                } else {
-                    throw new Error(`Arrays are not supported for recursive JSON schema parsing yet`);
-                }
+                asJsonSchemaObject.properties[key] = this.#recursivelyParseObject(value);
             }
             if (typeof value === 'string') {
                 asJsonSchemaObject.properties = {

@@ -5,3 +5,5 @@ CREATE TYPE hotel.visitor ( id varint, name text, from_where frozen<hotel.addres
 CREATE TABLE hotel.admin ( id uuid PRIMARY KEY, name text, experience float, scores bigint, ip_addr inet, age int );
 
 INSERT INTO hotel.admin (id, age, experience, ip_addr, name, scores) VALUES (now(), 20, 15.9, '12.13.23.12', '{"name_part":{"first":"Alice","last":"Bob"}, "age": 21}', 892);
+
+INSERT INTO hotel.admin(id,age,experience, ip_addr , name, scores) VALUES (now(),20,15.9,'11.34.13.89','[{"name_part":{"first":"Alice","last":"Bob"}, "age": 21}, "lalala", 1]', 892 );
