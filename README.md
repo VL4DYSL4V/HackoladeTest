@@ -27,7 +27,7 @@ string interpolation).
 ---
 
 - Recursive string parsing for UDT is not supported. It's exactly the same as parsing for tables,
-but in order to have samples we'd have to traverse tables and find column names with type frozen&lt;UDT&gt;
+but to get samples we'd have to traverse tables and find column names with type frozen&lt;UDT&gt;
 
 ---
 

@@ -6,7 +6,7 @@ export class TableEntity {
     name;
 
     /**
-     * @field columns {Array<SimpleColumnDto>}
+     * @field columns {Array<SimpleColumnEntity | SampledColumnEntity | NestedColumnEntity>}
      * */
     columns = [];
 

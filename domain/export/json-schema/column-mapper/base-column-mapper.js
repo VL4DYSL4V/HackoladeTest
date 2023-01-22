@@ -26,7 +26,7 @@ export class BaseColumnMapper {
     }
 
     /**
-     * @param column {SimpleColumnEntity | SampledColumnEntity}
+     * @param column {SimpleColumnEntity | SampledColumnEntity | NestedColumnEntity}
      * @return Object
      * */
     mapColumn(column){
@@ -34,7 +34,7 @@ export class BaseColumnMapper {
     }
 
     /**
-     * @param column {SimpleColumnEntity | SampledColumnEntity}
+     * @param column {SimpleColumnEntity | SampledColumnEntity | NestedColumnEntity}
      * @return {Object | never}
      * */
     _next(column){

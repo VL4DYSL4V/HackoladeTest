@@ -2,10 +2,10 @@ import {DatabaseModelProvider} from "../database-model-provider.js";
 import {TableEntity} from "../model/table-entity.js";
 import {DatabaseConfig} from "../../../config.js";
 import {
-    CassandraTypeToModelTypeMapper,
+    CassandraToModelMapper, NestedColumnTypes,
     SampledColumnTypes,
     SimpleColumnTypes
-} from "./cassandra-type-to-model-type-mapper.js";
+} from "./cassandra-to-model-mapper.js";
 import {SimpleColumnEntity} from "../model/simple-column-entity.js";
 import {CustomTypeEntity} from "../model/custom-type-entity.js";
 import {SampledColumnEntity} from "../model/sampled-column-entity.js";
@@ -56,21 +56,24 @@ export class CassandraDatabaseModelProvider extends DatabaseModelProvider {
 
 
     /**
-     * @param columnOwner {{ columns: Array<SimpleColumnEntity> }}
+     * @param columnOwner {{ columns: Array<SimpleColumnEntity | SampledColumnEntity | NestedColumnEntity> }}
      * @param name {string}
      * @param cassandraType {string}
      * */
     static #addColumn(columnOwner, name, cassandraType) {
         if (SimpleColumnTypes.has(cassandraType)) {
-            const modelType = CassandraTypeToModelTypeMapper.getModelTypeFromSimpleCassandraType(cassandraType);
+            const modelType = CassandraToModelMapper.getModelTypeFromSimpleCassandraType(cassandraType);
             const columnDto = new SimpleColumnEntity(name, modelType, true);
             columnOwner.columns.push(columnDto);
         } else if (SampledColumnTypes.has(cassandraType)){
-            const modelType = CassandraTypeToModelTypeMapper.getModelTypeFromSampledCassandraType(cassandraType);
+            const modelType = CassandraToModelMapper.getModelTypeFromSampledCassandraType(cassandraType);
             const columnDto = new SampledColumnEntity(name, modelType, true);
             columnOwner.columns.push(columnDto);
+        } else if (NestedColumnTypes.some(nt => cassandraType.startsWith(nt))) {
+            const columnDto = CassandraToModelMapper.getNestedColumns(cassandraType);
+            columnOwner.columns.push(columnDto);
         } else {
-            console.warn('Not implemented: ', cassandraType);
+            throw new Error(`Cassandra type not implemented: ${cassandraType}`);
         }
     }
 

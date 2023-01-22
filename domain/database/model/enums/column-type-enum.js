@@ -16,11 +16,15 @@ export const ColumnTypes = Object.freeze({
     TIME: 'TIME',
     DATE: 'DATE',
     CASSANDRA_DURATION: 'CASSANDRA_DURATION',
+    INET: 'INET',
     // Array of signed bytes
     BLOB: 'BLOB',
 //  COMPLEX TYPES
-    INET: 'INET',
     TEXT: 'TEXT',
     ARRAY: 'ARRAY',
+    SET: 'SET',
+    MAP: 'MAP',
+    TUPLE: 'TUPLE',
+    FROZEN: 'FROZEN',
 })
 

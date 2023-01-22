@@ -11,7 +11,7 @@ export class DatabaseModel {
     tables = [];
 
     /**
-     * @param customTypes {Array<TableEntity>}
+     * @param customTypes {Array<CustomTypeEntity>}
      * @param tables {Array<TableEntity>}
      * */
     constructor(customTypes, tables) {

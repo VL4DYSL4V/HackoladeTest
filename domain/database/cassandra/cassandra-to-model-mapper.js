@@ -29,20 +29,24 @@ const SampledCassandraTypeToModelColumnType = Object.freeze({
     'ascii': ColumnTypes.TEXT,
 })
 
-const ComplexCassandraTypeToModelColumnType = Object.freeze({
-    // // Array of stuff
-    // 'array': ,
-    // 'map': ,
-    // 'set': ,
-    // 'tuple': ,
-    // 'frozen': ,
-})
-
 export const SimpleColumnTypes = Object.freeze(new Set(Object.keys(SimpleCassandraTypeToModelColumnType)));
 
 export const SampledColumnTypes = Object.freeze(new Set(Object.keys(SampledCassandraTypeToModelColumnType)));
 
-export class CassandraTypeToModelTypeMapper {
+export const NestedColumnTypes = Object.freeze([
+    'array',
+    'map',
+    'set',
+    'tuple',
+    'frozen'
+]);
+
+const NestedTypeDelimiters = Object.freeze({
+    START: '<',
+    END: '>',
+});
+
+export class CassandraToModelMapper {
 
     /**
      * @param cassandraType {string}
@@ -66,6 +70,16 @@ export class CassandraTypeToModelTypeMapper {
             throw new Error(`Unknown sampled cassandra column type: ${cassandraType}`);
         }
         return out;
+    }
+
+    /**
+     * @param cassandraType {string}
+     * @return NestedColumnEntity
+     * */
+    static getNestedColumns(cassandraType) {
+
+
+
     }
 
 }
