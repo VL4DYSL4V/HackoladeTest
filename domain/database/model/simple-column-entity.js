@@ -21,7 +21,7 @@ export class SimpleColumnEntity {
      * @param nullable {boolean | undefined}
      * */
     constructor(name, columnType, nullable) {
-        this.name = String(name);
+        this.name = name ? String(name) : undefined;
         this.columnType = String(columnType);
         this.nullable = Boolean(nullable);
     }

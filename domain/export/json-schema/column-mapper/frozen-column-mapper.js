@@ -5,7 +5,7 @@ import {JsonSchemaTypes} from "../enums/json-schema-types.js";
 import {ColumnMapper} from "./index.js";
 
 
-export class ArrayColumnMapper extends BaseColumnMapper {
+export class FrozenColumnMapper extends BaseColumnMapper {
 
     /**
      * @param nextMapper {BaseColumnMapper | undefined}
@@ -17,22 +17,18 @@ export class ArrayColumnMapper extends BaseColumnMapper {
 
     mapColumn(column) {
         this._assertColumnValid(column);
-        if (column instanceof NestedColumnEntity && column.columnType === ColumnTypes.ARRAY) {
+        if (column instanceof NestedColumnEntity && column.columnType === ColumnTypes.FROZEN) {
             if (column.children.length !== 1) {
-                throw new Error(`Invalid column: array column must have exactly 1 child, got: ${JSON.stringify(column)}`)
+                throw new Error(`Invalid column: frozen column must have exactly 1 child, got: ${JSON.stringify(column)}`)
             }
             const child = column.children[0];
             const childJsonSchema = ColumnMapper.mapColumn(child);
-            const jsonSchema = {
-                type: JsonSchemaTypes.ARRAY,
-                items: childJsonSchema
-            };
             if (column.name) {
                 return {
-                    [column.name]: jsonSchema
+                    [column.name]: childJsonSchema
                 }
             }
-            return jsonSchema;
+            return childJsonSchema;
         }
         return this._next(column);
     }

@@ -115,11 +115,12 @@ export class SimpleColumnMapper extends BaseColumnMapper {
                 throw new Error(`Column type ${column.columnType} is not supported for JSON schema mapping`)
             }
             const typeConfig = jsonSchemaTypeSupplier();
-            return {
-                [column.name]: {
-                    ...typeConfig,
+            if (column.name) {
+                return {
+                    [column.name]: typeConfig
                 }
             }
+            return typeConfig;
         }
         return this._next(column);
     }

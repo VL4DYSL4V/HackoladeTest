@@ -43,9 +43,20 @@
           "type": "integer"
         }
       },
-      {},
-      {},
-      {}
+      {
+        "names": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      {
+        "staff": {}
+      },
+      {
+        "features": {}
+      }
     ]
   },
   {
@@ -64,7 +75,9 @@
           "type": "string"
         }
       },
-      {}
+      {
+        "from_where": {}
+      }
     ]
   },
   {
@@ -196,7 +209,9 @@
     "title": "hotels",
     "type": "object",
     "properties": [
-      {},
+      {
+        "address": {}
+      },
       {
         "id": {
           "type": "string"
@@ -221,7 +236,9 @@
     "title": "hotels_by_poi",
     "type": "object",
     "properties": [
-      {},
+      {
+        "address": {}
+      },
       {
         "hotel_id": {
           "type": "string"

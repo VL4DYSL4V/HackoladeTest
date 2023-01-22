@@ -93,8 +93,10 @@ export class CassandraToModelMapper {
      * */
     static #extractTypeInfo(cassandraType) {
         if (simpleTypeRegex.test(cassandraType)) {
+            const asSimpleType = SimpleCassandraTypeToModelColumnType[cassandraType];
+            const asSampledType = SampledCassandraTypeToModelColumnType[cassandraType];
             return {
-                type: cassandraType,
+                type: asSimpleType || asSampledType || cassandraType,
                 isSimple: true,
                 nested: ''
             }
@@ -114,7 +116,7 @@ export class CassandraToModelMapper {
         const nested = cassandraType.substring(indexOfStartDelimiter + 1, indexOfEndDelimiter);
         return {
             isSimple: false,
-            type,
+            type: NestedCassandraTypeToModelColumnType[type],
             nested
         }
     }

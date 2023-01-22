@@ -128,19 +128,23 @@ export class SampledStringColumnMapper extends BaseColumnMapper {
                 throw new Error(`Mapping of column type ${column.columnType} is not supported`);
             }
             const typeConfig = supplier();
-            return {
-                [column.name]: {
-                    ...typeConfig,
+            if (column.name) {
+                return {
+                    [column.name]: typeConfig
                 }
             }
+            return typeConfig;
         }
         if (column?.sampleValues?.length > 1) {
             throw new Error(`Cross-referencing multiple string samples is not supported`);
         }
         const schemaObject = this.#crossReferenceAndParseJsonSamples(column.sampleValues);
-        return {
-            [column.name]: schemaObject
+        if (column.name) {
+            return {
+                [column.name]: schemaObject
+            }
         }
+        return schemaObject;
     }
 
     mapColumn(column) {
