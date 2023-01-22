@@ -85,7 +85,22 @@
       {
         "name": {
           "type": "object",
-          "properties": {}
+          "properties": {
+            "name_part": {
+              "type": "object",
+              "properties": {
+                "first": {
+                  "type": "string"
+                },
+                "last": {
+                  "type": "string"
+                }
+              }
+            },
+            "age": {
+              "type": "number"
+            }
+          }
         }
       },
       {

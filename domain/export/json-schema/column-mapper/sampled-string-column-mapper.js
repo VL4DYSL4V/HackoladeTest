@@ -35,42 +35,86 @@ export class SampledStringColumnMapper extends BaseColumnMapper {
     }
 
     /**
-     * @param sample {string}
+     * @param name {string} - only matters if parsing a regular string as part of object.
+     *  Can be ignored if supplied value is a JSON
+     * @param value {string}
      * @return Object
      * */
-    #parseJsonStringIntoJsonSchemaObject(sample) {
-        const asObject = JSON.parse(sample);
-        const asJsonSchemaObject = {
-            type: JsonSchemaTypes.OBJECT,
-            properties: [],
-        };
-        for (let key of Object.keys(asObject)) {
-            const value = asObject[key];
-            if (typeof value === 'number' || typeof value === 'bigint') {
-                const column = new SimpleColumnEntity(key, ColumnTypes.DECIMAL, true);
-                const asProperty = ColumnMapper.mapColumn(column);
-                asJsonSchemaObject.properties.push(asProperty);
+    #recursivelyParseString(name, value) {
+        if (!SampledStringColumnMapper.#areAllJSONObjects([value])) {
+            const supplier = StringModelTypeToJsonSchemaTypeSupplier[ColumnTypes.TEXT];
+            if (!supplier) {
+                throw new Error(`${ColumnTypes.TEXT} supplier is missing`);
+            }
+            const typeConfig = supplier();
+            return {
+                [name]: {
+                    ...typeConfig,
+                }
             }
         }
-        // {
-        //      id: 1,
-        //      name: "string",
-        //      friends: ['alice', 'bob'],
-        //      bestFriend: {
-        //          id: 3,
-        //          name: 'John'
-        //      }
-        // }
-        return {};
+        const asObject = JSON.parse(value);
+        return this.#recursivelyParseObject(asObject);
+    }
+
+    /**
+     * @param obj {Object}
+     * @return Object
+     * */
+    #recursivelyParseObject(obj) {
+        const asJsonSchemaObject = {
+            type: JsonSchemaTypes.OBJECT,
+            properties: {},
+        };
+        for (let key of Object.keys(obj)) {
+            const value = obj[key];
+            if (typeof value === 'undefined') {
+                throw new Error('Undefined value in parsed string');
+            }
+            if (typeof value === 'function') {
+                throw new Error('Functions are not supported during JSON serialization');
+            }
+            if (typeof value === 'symbol') {
+                throw new Error('JS Symbols are not supported during JSON serialization');
+            }
+            if (typeof value === 'number' || typeof value === 'bigint') {
+                const column = new SimpleColumnEntity(key, ColumnTypes.DECIMAL, true);
+                asJsonSchemaObject.properties = {
+                    ...asJsonSchemaObject.properties,
+                    ...ColumnMapper.mapColumn(column),
+                };
+            }
+            if (typeof value === 'boolean') {
+                const column = new SimpleColumnEntity(key, ColumnTypes.BOOLEAN, true);
+                asJsonSchemaObject.properties = {
+                    ...asJsonSchemaObject.properties,
+                    ...ColumnMapper.mapColumn(column),
+                };
+            }
+            if (typeof value === 'object') {
+                if (!Array.isArray(value)) {
+                    asJsonSchemaObject.properties[key] = this.#recursivelyParseObject(value);
+                } else {
+                    throw new Error(`Arrays are not supported for recursive JSON schema parsing yet`);
+                }
+            }
+            if (typeof value === 'string') {
+                asJsonSchemaObject.properties = {
+                    ...asJsonSchemaObject.properties,
+                    ...this.#recursivelyParseString(key, value),
+                };
+            }
+        }
+        return asJsonSchemaObject;
     }
 
     /**
      * @param samples {Array<string>}
-     * @return Object
+     * @return {Object} - JsonSchemaObject
      * */
     #crossReferenceAndParseJsonSamples(samples) {
         const sample = samples[0];
-        return this.#parseJsonStringIntoJsonSchemaObject(sample);
+        return this.#recursivelyParseString('', sample);
     }
 
     /**
@@ -93,12 +137,9 @@ export class SampledStringColumnMapper extends BaseColumnMapper {
         if (column?.sampleValues?.length > 1) {
             throw new Error(`Cross-referencing multiple string samples is not supported`);
         }
-        const properties = this.#crossReferenceAndParseJsonSamples(column.sampleValues);
+        const schemaObject = this.#crossReferenceAndParseJsonSamples(column.sampleValues);
         return {
-            [column.name]: {
-                type: JsonSchemaTypes.OBJECT,
-                properties,
-            }
+            [column.name]: schemaObject
         }
     }
 
