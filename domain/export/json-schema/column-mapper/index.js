@@ -6,9 +6,11 @@ import {FrozenColumnMapper} from "./frozen-column-mapper.js";
 import {SetColumnMapper} from "./set-column-mapper.js";
 import {MapColumnMapper} from "./map-column-mapper.js";
 import {TupleColumnMapper} from "./tuple-column-mapper.js";
+import {CustomTypeColumnMapper} from "./custom-type-column-mapper.js";
 
 const baseMapper = new BaseColumnMapper(undefined);
-const tupleMapper = new TupleColumnMapper(baseMapper);
+const customTypeMapper = new CustomTypeColumnMapper(baseMapper);
+const tupleMapper = new TupleColumnMapper(customTypeMapper);
 const mapMapper= new MapColumnMapper(tupleMapper);
 const setMapper = new SetColumnMapper(mapMapper);
 const arrayMapper = new ArrayColumnMapper(setMapper);

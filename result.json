@@ -96,7 +96,9 @@
         }
       },
       {
-        "from_where": {}
+        "from_where": {
+          "$ref": "/address"
+        }
       }
     ]
   },
@@ -230,7 +232,9 @@
     "type": "object",
     "properties": [
       {
-        "address": {}
+        "address": {
+          "$ref": "/address"
+        }
       },
       {
         "id": {
@@ -265,7 +269,9 @@
     "type": "object",
     "properties": [
       {
-        "address": {}
+        "address": {
+          "$ref": "/address"
+        }
       },
       {
         "hotel_id": {

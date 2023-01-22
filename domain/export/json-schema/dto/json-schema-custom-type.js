@@ -1,4 +1,5 @@
 import {JsonSchemaTypes} from "../enums/json-schema-types.js";
+import {JsonSchemaUtils} from "../util/json-schema-utils.js";
 
 export class JsonSchemaCustomType {
 
@@ -40,7 +41,7 @@ export class JsonSchemaCustomType {
         }
         this.$schema = String(schema);
         this.title = String(name);
-        this.id = `/${name}`;
+        this.id = JsonSchemaUtils.getCustomTypeRelativeURI(name);
     }
 
 }
