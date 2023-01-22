@@ -52,7 +52,11 @@
         }
       },
       {
-        "staff": {}
+        "staff": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {}
+        }
       },
       {
         "features": {}
@@ -227,7 +231,15 @@
           "type": "string"
         }
       },
-      {}
+      {
+        "pois": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string"
+          }
+        }
+      }
     ]
   },
   {
