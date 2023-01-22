@@ -1,7 +1,7 @@
 export class NestedColumnEntity {
 
     /**
-     * @field name string
+     * @field name {string | undefined}
      * */
     name;
 
@@ -27,12 +27,12 @@ export class NestedColumnEntity {
     children = [];
 
     /**
-     * @param name {string}
+     * @param name {string | undefined}
      * @param columnType {string | Object}
      * @param nullable {boolean | undefined}
      * */
     constructor(name, columnType, nullable) {
-        this.name = String(name);
+        this.name = name ? String(name) : undefined;
         this.columnType = String(columnType);
         this.nullable = Boolean(nullable);
     }

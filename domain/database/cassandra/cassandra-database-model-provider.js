@@ -70,7 +70,7 @@ export class CassandraDatabaseModelProvider extends DatabaseModelProvider {
             const columnDto = new SampledColumnEntity(name, modelType, true);
             columnOwner.columns.push(columnDto);
         } else if (NestedColumnTypes.some(nt => cassandraType.startsWith(nt))) {
-            const columnDto = CassandraToModelMapper.getNestedColumns(cassandraType);
+            const columnDto = CassandraToModelMapper.getNestedColumns(cassandraType, name);
             columnOwner.columns.push(columnDto);
         } else {
             throw new Error(`Cassandra type not implemented: ${cassandraType}`);
