@@ -40,7 +40,9 @@ export class BaseColumnMapper {
     _next(column){
         if (!this._nextMapper) {
             this._assertColumnValid(column);
-            throw new Error(`Mapping of ${column.constructor.name} is not supported`);
+            // throw new Error(`Mapping of ${column.constructor.name} with type ${column.columnType} is not supported`);
+            console.warn(`Mapping of ${column.constructor.name} with type ${column.columnType} is not supported`);
+            return {}
         }
         return this._nextMapper.mapColumn(column);
     }

@@ -99,6 +99,9 @@ export class CassandraToModelMapper {
                 nested: ''
             }
         }
+        if (!nestedTypeRegex.test(cassandraType)) {
+            throw new Error(`Invalid nested type: ${cassandraType}`);
+        }
         const type = NestedColumnTypes.find(t => cassandraType.startsWith(t));
         if (!type) {
             throw new Error(`Cannot parse Cassandra type: ${cassandraType}`);
@@ -196,7 +199,9 @@ export class CassandraToModelMapper {
      * @return NestedColumnEntity
      * */
     static getNestedColumns(cassandraType, columnName) {
-        return CassandraToModelMapper.#parseNestedType(cassandraType, undefined, columnName);
+        const cassandraTypeNoWhitespaces = cassandraType.replace(/\s+/g, '');
+        return CassandraToModelMapper.#parseNestedType(
+            cassandraTypeNoWhitespaces, undefined, columnName);
     }
 
 }

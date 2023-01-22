@@ -145,7 +145,9 @@ export class SampledStringColumnMapper extends BaseColumnMapper {
 
     mapColumn(column) {
         this._assertColumnValid(column);
-        if (!(column instanceof SampledColumnEntity)) {
+        if (!(column instanceof SampledColumnEntity
+            || new Set(Object.keys(StringModelTypeToJsonSchemaTypeSupplier)).has(column.columnType))
+        ) {
             return this._next(column);
         }
         const areAllStrings = column.sampleValues.every(v => typeof v === 'string');

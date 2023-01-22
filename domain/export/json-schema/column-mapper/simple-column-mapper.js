@@ -106,7 +106,10 @@ export class SimpleColumnMapper extends BaseColumnMapper {
 
     mapColumn(column) {
         this._assertColumnValid(column);
-        if (column instanceof SimpleColumnEntity) {
+        if (
+            column instanceof SimpleColumnEntity
+            || new Set(Object.keys(SimpleModelTypeToJsonSchemaTypeSupplier)).has(column.columnType)
+        ) {
             const jsonSchemaTypeSupplier = SimpleModelTypeToJsonSchemaTypeSupplier[column.columnType];
             if (!jsonSchemaTypeSupplier) {
                 throw new Error(`Column type ${column.columnType} is not supported for JSON schema mapping`)
