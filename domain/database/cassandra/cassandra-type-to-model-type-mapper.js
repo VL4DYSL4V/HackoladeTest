@@ -1,11 +1,13 @@
 import {ColumnTypes} from "../model/enums/column-type-enum.js";
 
+// CHECK IF EVERYTHING IS CORRECT: https://cassandra.apache.org/doc/latest/cassandra/cql/types.html#native-types
 const SimpleCassandraTypeToModelColumnType = Object.freeze({
     'bigint': ColumnTypes.LONG,
     'boolean': ColumnTypes.BOOLEAN,
     'counter': ColumnTypes.LONG,
     'date': ColumnTypes.DATE,
     'decimal': ColumnTypes.DECIMAL,
+    'duration': ColumnTypes.CASSANDRA_DURATION,
     'double': ColumnTypes.DOUBLE,
     'float': ColumnTypes.FLOAT,
     'int': ColumnTypes.INTEGER,
@@ -15,8 +17,9 @@ const SimpleCassandraTypeToModelColumnType = Object.freeze({
     'timeuuid': ColumnTypes.UUID,
     'tinyint': ColumnTypes.BYTE,
     'uuid': ColumnTypes.UUID,
-    'varint': ColumnTypes.UNSIGNED_INT,
+    'varint': ColumnTypes.BIG_INTEGER,
     'blob': ColumnTypes.BLOB,
+    'inet': ColumnTypes.INET,
 })
 
 const ComplexCassandraTypeToModelColumnType = Object.freeze({
@@ -26,8 +29,6 @@ const ComplexCassandraTypeToModelColumnType = Object.freeze({
     // 'set': ,
     // 'tuple': ,
     // 'frozen': ,
-    // // Require samples, can be ipv4 or ipv6
-    // 'inet': ,
     // // Require samples, can be parsed into other formats
     // 'text': ,
     // 'varchar': ,

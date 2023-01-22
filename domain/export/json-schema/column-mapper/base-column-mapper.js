@@ -29,7 +29,7 @@ export class BaseColumnMapper {
      * @param column {SimpleColumnEntity}
      * @return Object
      * */
-    async mapColumn(column){
+    mapColumn(column){
         return this._next(column);
     }
 
@@ -37,7 +37,7 @@ export class BaseColumnMapper {
      * @param column {SimpleColumnEntity}
      * @return {Object | never}
      * */
-    async _next(column){
+    _next(column){
         if (!this._nextMapper) {
             this._assertColumnValid(column);
             throw new Error(`Mapping of ${column.constructor.name} is not supported`);

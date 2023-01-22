@@ -60,7 +60,7 @@ export class JsonSchemaToFileExporter extends Exporter{
         const schema = this.#getValidationSchemaUrl();
         return tables.map((t) => {
             const out = new JsonSchemaTable(schema, t.name);
-            out.properties = c.columns.map(col => ColumnMapper.mapColumn(col));
+            out.properties = t.columns.map(col => ColumnMapper.mapColumn(col));
             return out;
         });
     }

@@ -6,13 +6,16 @@ import {NumberConstraint} from "../../../common/enums/number-constraint.js";
 
 // https://json-schema.org/understanding-json-schema/reference/numeric.html?highlight=integer
 
-const SimpleModelTypeToJsonSchemaType = Object.freeze({
+const SimpleModelTypeToJsonSchemaTypeSupplier = Object.freeze({
     [ColumnTypes.UUID]: () => ({
         type: JsonSchemaTypes.STRING,
         pattern: '^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$'
     }),
     [ColumnTypes.BOOLEAN]: () => ({
         type: JsonSchemaTypes.BOOLEAN
+    }),
+    [ColumnTypes.BIG_INTEGER]: () => ({
+        type: JsonSchemaTypes.INTEGER,
     }),
     [ColumnTypes.LONG]: () => ({
         type: JsonSchemaTypes.INTEGER,
@@ -60,14 +63,33 @@ const SimpleModelTypeToJsonSchemaType = Object.freeze({
             maximum: NumberConstraint.MAX_BYTE,
         }
     }),
-    [ColumnTypes.TIMESTAMP_WITH_TIMEZONE]: (type) => {
-    },
-    [ColumnTypes.TIMESTAMP_WITHOUT_TIMEZONE]: (type) => {
-    },
-    [ColumnTypes.DATE]: (type) => {
-    },
-    [ColumnTypes.TIME]: (type) => {
-    },
+    [ColumnTypes.INET]: () => ({
+        type: JsonSchemaTypes.STRING,
+        // Regex to validate both IPv4 and IPv6
+        pattern: "(?:^(?:25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]\\d|\\d)(?:\\.(?:25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]\\d|\\d)){3}$)|(?:^(?:(?:[a-fA-F\\d]{1,4}:){7}(?:[a-fA-F\\d]{1,4}|:)|(?:[a-fA-F\\d]{1,4}:){6}(?:(?:25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]\\d|\\d)(?:\\\\.(?:25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]\\d|\\d)){3}|:[a-fA-F\\d]{1,4}|:)|(?:[a-fA-F\\d]{1,4}:){5}(?::(?:25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]\\d|\\d)(?:\\\\.(?:25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]\\d|\\d)){3}|(?::[a-fA-F\\d]{1,4}){1,2}|:)|(?:[a-fA-F\\d]{1,4}:){4}(?:(?::[a-fA-F\\d]{1,4}){0,1}:(?:25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]\\d|\\d)(?:\\\\.(?:25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]\\d|\\d)){3}|(?::[a-fA-F\\d]{1,4}){1,3}|:)|(?:[a-fA-F\\d]{1,4}:){3}(?:(?::[a-fA-F\\d]{1,4}){0,2}:(?:25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]\\d|\\d)(?:\\\\.(?:25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]\\d|\\d)){3}|(?::[a-fA-F\\d]{1,4}){1,4}|:)|(?:[a-fA-F\\d]{1,4}:){2}(?:(?::[a-fA-F\\d]{1,4}){0,3}:(?:25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]\\d|\\d)(?:\\\\.(?:25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]\\d|\\d)){3}|(?::[a-fA-F\\d]{1,4}){1,5}|:)|(?:[a-fA-F\\d]{1,4}:){1}(?:(?::[a-fA-F\\d]{1,4}){0,4}:(?:25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]\\d|\\d)(?:\\\\.(?:25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]\\d|\\d)){3}|(?::[a-fA-F\\d]{1,4}){1,6}|:)|(?::(?:(?::[a-fA-F\\d]{1,4}){0,5}:(?:25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]\\d|\\d)(?:\\\\.(?:25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]\\d|\\d)){3}|(?::[a-fA-F\\d]{1,4}){1,7}|:)))(?:%[0-9a-zA-Z]{1,})?$)"
+    }),
+    [ColumnTypes.TIMESTAMP_WITH_TIMEZONE]: () => ({
+        type: JsonSchemaTypes.STRING,
+        pattern: "^(-?(?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9])T(2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9])(\\.[0-9]+)?(Z|[+-](?:2[0-3]|[01][0-9]):[0-5][0-9])?$"
+    }),
+    [ColumnTypes.TIMESTAMP_WITHOUT_TIMEZONE]: () => ({
+        type: JsonSchemaTypes.STRING,
+        pattern: "^(-?(?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9])T(2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9])(\\.[0-9]+)?$"
+    }),
+    [ColumnTypes.DATE]: () => ({
+        type: JsonSchemaTypes.STRING,
+        pattern: "^([0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9])$"
+    }),
+    [ColumnTypes.TIME]: () => ({
+        type: JsonSchemaTypes.STRING,
+        pattern: "^(2[0-3]|[01][0-9]):?([0-5][0-9]):?([0-5][0-9])$",
+    }),
+    // TODO: ADD PATTERN:
+    //  ISO 8601 format: P[n]Y[n]M[n]DT[n]H[n]M[n]S or P[n]W
+    [ColumnTypes.CASSANDRA_DURATION]: (type) => ({
+        type: JsonSchemaTypes.STRING,
+
+    }),
 });
 
 export class SimpleColumnMapper extends BaseColumnMapper {
@@ -80,10 +102,10 @@ export class SimpleColumnMapper extends BaseColumnMapper {
     }
 
 
-    async mapColumn(column) {
+    mapColumn(column) {
         this._assertColumnValid(column);
         if (column instanceof SimpleColumnEntity) {
-            const jsonSchemaTypeSupplier = SimpleModelTypeToJsonSchemaType[column.columnType];
+            const jsonSchemaTypeSupplier = SimpleModelTypeToJsonSchemaTypeSupplier[column.columnType];
             if (!jsonSchemaTypeSupplier) {
                 throw new Error(`Column type ${column.columnType} is not supported for JSON schema mapping`)
             }

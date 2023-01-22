@@ -1,5 +1,6 @@
 export const ColumnTypes = Object.freeze({
 //  SIMPLE TYPES
+    BIG_INTEGER: 'BIG_INTEGER',
     UUID: 'UUID',
     BOOLEAN: 'BOOLEAN',
     LONG: 'LONG',
@@ -14,6 +15,7 @@ export const ColumnTypes = Object.freeze({
     TIMESTAMP_WITHOUT_TIMEZONE: 'TIMESTAMP_WITHOUT_TIMEZONE',
     TIME: 'TIME',
     DATE: 'DATE',
+    CASSANDRA_DURATION: 'CASSANDRA_DURATION',
     // Array of signed bytes
     BLOB: 'BLOB',
 //  COMPLEX TYPES

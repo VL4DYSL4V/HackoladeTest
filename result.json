@@ -2,51 +2,120 @@
   {
     "$schema": "https://json-schema.org/draft-04/schema#",
     "id": "/address",
-    "name": "address",
+    "title": "address",
     "type": "object",
     "properties": []
   },
   {
     "$schema": "https://json-schema.org/draft-04/schema#",
     "id": "/visitor",
-    "name": "visitor",
+    "title": "visitor",
     "type": "object",
     "properties": [
-      {}
+      {
+        "id": {
+          "type": "integer"
+        }
+      }
+    ]
+  },
+  {
+    "$schema": "https://json-schema.org/draft-04/schema#",
+    "id": "/admin",
+    "title": "admin",
+    "type": "object",
+    "properties": [
+      {
+        "age": {
+          "type": "integer",
+          "minimum": -2147483648,
+          "maximum": 2147483647
+        }
+      },
+      {
+        "experience": {
+          "type": "number",
+          "minimum": -3.4028234663852886e+38,
+          "maximum": 3.4028234663852886e+38
+        }
+      },
+      {
+        "id": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
+        }
+      },
+      {
+        "ip_addr": {
+          "type": "string",
+          "pattern": "(?:^(?:25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]\\d|\\d)(?:\\.(?:25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]\\d|\\d)){3}$)|(?:^(?:(?:[a-fA-F\\d]{1,4}:){7}(?:[a-fA-F\\d]{1,4}|:)|(?:[a-fA-F\\d]{1,4}:){6}(?:(?:25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]\\d|\\d)(?:\\\\.(?:25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]\\d|\\d)){3}|:[a-fA-F\\d]{1,4}|:)|(?:[a-fA-F\\d]{1,4}:){5}(?::(?:25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]\\d|\\d)(?:\\\\.(?:25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]\\d|\\d)){3}|(?::[a-fA-F\\d]{1,4}){1,2}|:)|(?:[a-fA-F\\d]{1,4}:){4}(?:(?::[a-fA-F\\d]{1,4}){0,1}:(?:25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]\\d|\\d)(?:\\\\.(?:25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]\\d|\\d)){3}|(?::[a-fA-F\\d]{1,4}){1,3}|:)|(?:[a-fA-F\\d]{1,4}:){3}(?:(?::[a-fA-F\\d]{1,4}){0,2}:(?:25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]\\d|\\d)(?:\\\\.(?:25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]\\d|\\d)){3}|(?::[a-fA-F\\d]{1,4}){1,4}|:)|(?:[a-fA-F\\d]{1,4}:){2}(?:(?::[a-fA-F\\d]{1,4}){0,3}:(?:25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]\\d|\\d)(?:\\\\.(?:25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]\\d|\\d)){3}|(?::[a-fA-F\\d]{1,4}){1,5}|:)|(?:[a-fA-F\\d]{1,4}:){1}(?:(?::[a-fA-F\\d]{1,4}){0,4}:(?:25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]\\d|\\d)(?:\\\\.(?:25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]\\d|\\d)){3}|(?::[a-fA-F\\d]{1,4}){1,6}|:)|(?::(?:(?::[a-fA-F\\d]{1,4}){0,5}:(?:25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]\\d|\\d)(?:\\\\.(?:25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]\\d|\\d)){3}|(?::[a-fA-F\\d]{1,4}){1,7}|:)))(?:%[0-9a-zA-Z]{1,})?$)"
+        }
+      },
+      {
+        "scores": {
+          "type": "integer",
+          "minimum": -9223372036854776000,
+          "maximum": 9223372036854776000
+        }
+      }
     ]
   },
   {
     "$schema": "https://json-schema.org/draft-04/schema#",
     "id": "/amenities_by_room",
-    "name": "amenities_by_room",
+    "title": "amenities_by_room",
     "type": "object",
-    "properties": []
+    "properties": [
+      {
+        "room_number": {
+          "type": "integer",
+          "minimum": -32768,
+          "maximum": 32767
+        }
+      }
+    ]
   },
   {
     "$schema": "https://json-schema.org/draft-04/schema#",
     "id": "/available_rooms_by_hotel_date",
-    "name": "available_rooms_by_hotel_date",
+    "title": "available_rooms_by_hotel_date",
     "type": "object",
-    "properties": []
+    "properties": [
+      {
+        "date": {}
+      },
+      {
+        "is_available": {
+          "type": "boolean"
+        }
+      },
+      {
+        "room_number": {
+          "type": "integer",
+          "minimum": -32768,
+          "maximum": 32767
+        }
+      }
+    ]
   },
   {
     "$schema": "https://json-schema.org/draft-04/schema#",
     "id": "/hotels",
-    "name": "hotels",
+    "title": "hotels",
     "type": "object",
     "properties": []
   },
   {
     "$schema": "https://json-schema.org/draft-04/schema#",
     "id": "/hotels_by_poi",
-    "name": "hotels_by_poi",
+    "title": "hotels_by_poi",
     "type": "object",
     "properties": []
   },
   {
     "$schema": "https://json-schema.org/draft-04/schema#",
     "id": "/pois_by_hotel",
-    "name": "pois_by_hotel",
+    "title": "pois_by_hotel",
     "type": "object",
     "properties": []
   }
