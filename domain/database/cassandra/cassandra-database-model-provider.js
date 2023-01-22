@@ -1,9 +1,15 @@
 import {DatabaseModelProvider} from "../database-model-provider.js";
 import {TableEntity} from "../model/table-entity.js";
 import {DatabaseConfig} from "../../../config.js";
-import {CassandraTypeToModelTypeMapper, SimpleColumnTypes} from "./cassandra-type-to-model-type-mapper.js";
+import {
+    CassandraTypeToModelTypeMapper,
+    SampledColumnTypes,
+    SimpleColumnTypes
+} from "./cassandra-type-to-model-type-mapper.js";
 import {SimpleColumnEntity} from "../model/simple-column-entity.js";
 import {CustomTypeEntity} from "../model/custom-type-entity.js";
+import {SampledColumnEntity} from "../model/sampled-column-entity.js";
+import {SampleProvider} from "../sample-provider.js";
 
 // https://cswr.github.io/JsonSchema/spec/grammar/
 
@@ -22,11 +28,18 @@ export class CassandraDatabaseModelProvider extends DatabaseModelProvider {
     #client;
 
     /**
-     * @param cassandraClient {import(cassandra).Client}
+     * @field #sampleProvider {SampleProvider}
      */
-    constructor(cassandraClient) {
+    #sampleProvider;
+
+    /**
+     * @param cassandraClient {import(cassandra).Client}
+     * @param sampleProvider {SampleProvider}
+     */
+    constructor(cassandraClient, sampleProvider) {
         super();
         this.#client = cassandraClient;
+        this.#sampleProvider = sampleProvider;
     }
 
     /**
@@ -52,9 +65,27 @@ export class CassandraDatabaseModelProvider extends DatabaseModelProvider {
             const modelType = CassandraTypeToModelTypeMapper.getModelTypeFromSimpleCassandraType(cassandraType);
             const columnDto = new SimpleColumnEntity(name, modelType, true);
             columnOwner.columns.push(columnDto);
+        } else if (SampledColumnTypes.has(cassandraType)){
+            const modelType = CassandraTypeToModelTypeMapper.getModelTypeFromSampledCassandraType(cassandraType);
+            const columnDto = new SampledColumnEntity(name, modelType, true);
+            columnOwner.columns.push(columnDto);
         } else {
-            console.warn('Not implemented: ', cassandraType)
+            console.warn('Not implemented: ', cassandraType);
         }
+    }
+
+    /**
+     * @param table {TableEntity}
+     * @return {Promise<void>}
+     * */
+    async #enrichTableColumnsWithSamples(table) {
+        const enrichmentPromises = table.columns
+            .filter(c => c instanceof SampledColumnEntity)
+            .map(sce => {
+                return this.#sampleProvider.getSamplesForTable(sce.name, table.name)
+                    .then(res => sce.sampleValues = res);
+            });
+        await Promise.all(enrichmentPromises);
     }
 
     /**
@@ -65,9 +96,11 @@ export class CassandraDatabaseModelProvider extends DatabaseModelProvider {
         const tableInfoQuery = 'SELECT * FROM system_schema.columns WHERE keyspace_name = ? AND table_name = ?;'
 
         const tableRes = await this.#client.execute(tableInfoQuery, [ DatabaseConfig.keyspace, table.name ], { prepare: true });
-        return tableRes.rows.forEach(r => {
+        tableRes.rows.forEach(r => {
             CassandraDatabaseModelProvider.#addColumn(table, r.column_name, r.type);
         });
+
+        return this.#enrichTableColumnsWithSamples(table);
     }
 
     /**

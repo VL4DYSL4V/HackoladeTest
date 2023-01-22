@@ -3,3 +3,6 @@ CREATE KEYSPACE hotel WITH replication =   {'class': 'SimpleStrategy', 'replicat
 CREATE TYPE hotel.visitor ( id varint, name text, from_where frozen<hotel.address> );
 
 CREATE TABLE hotel.admin ( id uuid PRIMARY KEY, name text, experience float, scores bigint, ip_addr inet, age int );
+
+INSERT INTO hotel.admin (id, age, experience, ip_addr, name, scores) VALUES (now(), 34, 45.23, '10.10.23.12', 'Alice', 7902);
+INSERT INTO hotel.admin (id, age, experience, ip_addr, name, scores) VALUES (now(), 20, 15.9, '12.13.23.12', '{"name":{"first":"Alice","last":"Bob"}}', 892);

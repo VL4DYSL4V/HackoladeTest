@@ -20,6 +20,13 @@ const SimpleCassandraTypeToModelColumnType = Object.freeze({
     'varint': ColumnTypes.BIG_INTEGER,
     'blob': ColumnTypes.BLOB,
     'inet': ColumnTypes.INET,
+});
+
+const SampledCassandraTypeToModelColumnType = Object.freeze({
+    // Require samples, can be parsed into other formats
+    'text': ColumnTypes.TEXT,
+    'varchar': ColumnTypes.TEXT,
+    'ascii': ColumnTypes.TEXT,
 })
 
 const ComplexCassandraTypeToModelColumnType = Object.freeze({
@@ -29,13 +36,11 @@ const ComplexCassandraTypeToModelColumnType = Object.freeze({
     // 'set': ,
     // 'tuple': ,
     // 'frozen': ,
-    // // Require samples, can be parsed into other formats
-    // 'text': ,
-    // 'varchar': ,
-    // 'ascii': ColumnTypes.TEXT,
 })
 
 export const SimpleColumnTypes = Object.freeze(new Set(Object.keys(SimpleCassandraTypeToModelColumnType)));
+
+export const SampledColumnTypes = Object.freeze(new Set(Object.keys(SampledCassandraTypeToModelColumnType)));
 
 export class CassandraTypeToModelTypeMapper {
 
@@ -47,6 +52,18 @@ export class CassandraTypeToModelTypeMapper {
         const out = SimpleCassandraTypeToModelColumnType[cassandraType];
         if (!out) {
             throw new Error(`Unknown simple cassandra column type: ${cassandraType}`);
+        }
+        return out;
+    }
+
+    /**
+     * @param cassandraType {string}
+     * @return string
+     * */
+    static getModelTypeFromSampledCassandraType(cassandraType) {
+        const out = SampledCassandraTypeToModelColumnType[cassandraType];
+        if (!out) {
+            throw new Error(`Unknown sampled cassandra column type: ${cassandraType}`);
         }
         return out;
     }
