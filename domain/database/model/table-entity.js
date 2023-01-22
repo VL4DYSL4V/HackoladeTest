@@ -20,9 +20,9 @@ export class TableEntity {
 
 }
 // CQL data type 	JavaScript type
-//* ascii 	        String
+// ascii 	        String
 //* bigint 	        Long
-//  blob 	        Buffer
+//* blob 	        Buffer
 //* boolean 	        Boolean
 //* counter 	        Long
 //* date 	        LocalDate

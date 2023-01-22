@@ -1,3 +1,5 @@
+import {JsonSchemaTypes} from "../enums/json-schema-types.js";
+
 export class JsonSchemaTable {
 
     /**
@@ -18,7 +20,7 @@ export class JsonSchemaTable {
     /**
      * @field type {'object'}
      * */
-    type = 'object';
+    type = JsonSchemaTypes.OBJECT;
 
     /**
      * @field type {Array<Object>}

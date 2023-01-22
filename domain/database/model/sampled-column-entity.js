@@ -1,7 +1,19 @@
-import {SimpleColumnEntity} from "./simple-column-entity.js";
+export class SampledColumnEntity {
 
-export class SampledColumnEntity extends SimpleColumnEntity {
+    /**
+     * @field name string
+     * */
+    name;
 
+    /**
+     * @field type string
+     * */
+    columnType;
+
+    /**
+     * @field nullable boolean
+     * */
+    nullable;
 
     /**
      * @field sampleValues {Array<any>}
@@ -14,7 +26,9 @@ export class SampledColumnEntity extends SimpleColumnEntity {
      * @param nullable {boolean | undefined}
      * */
     constructor(name, columnType, nullable) {
-        super(name, columnType, nullable);
+        this.name = String(name);
+        this.columnType = String(columnType);
+        this.nullable = Boolean(nullable);
     }
 
 }

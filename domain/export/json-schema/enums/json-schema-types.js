@@ -4,4 +4,5 @@ export const JsonSchemaTypes = Object.freeze({
     BOOLEAN: 'boolean',
     STRING: 'string',
     ARRAY: 'array',
+    OBJECT: 'object',
 })

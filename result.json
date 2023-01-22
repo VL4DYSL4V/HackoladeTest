@@ -4,7 +4,33 @@
     "id": "/address",
     "title": "address",
     "type": "object",
-    "properties": []
+    "properties": [
+      {
+        "street": {
+          "type": "string"
+        }
+      },
+      {
+        "city": {
+          "type": "string"
+        }
+      },
+      {
+        "state_or_province": {
+          "type": "string"
+        }
+      },
+      {
+        "postal_code": {
+          "type": "string"
+        }
+      },
+      {
+        "country": {
+          "type": "string"
+        }
+      }
+    ]
   },
   {
     "$schema": "https://json-schema.org/draft-04/schema#",
@@ -15,6 +41,11 @@
       {
         "id": {
           "type": "integer"
+        }
+      },
+      {
+        "name": {
+          "type": "string"
         }
       }
     ]
@@ -52,6 +83,12 @@
         }
       },
       {
+        "name": {
+          "type": "object",
+          "properties": {}
+        }
+      },
+      {
         "scores": {
           "type": "integer",
           "minimum": -9223372036854776000,
@@ -66,6 +103,21 @@
     "title": "amenities_by_room",
     "type": "object",
     "properties": [
+      {
+        "amenity_name": {
+          "type": "string"
+        }
+      },
+      {
+        "description": {
+          "type": "string"
+        }
+      },
+      {
+        "hotel_id": {
+          "type": "string"
+        }
+      },
       {
         "room_number": {
           "type": "integer",
@@ -88,6 +140,11 @@
         }
       },
       {
+        "hotel_id": {
+          "type": "string"
+        }
+      },
+      {
         "is_available": {
           "type": "boolean"
         }
@@ -106,20 +163,73 @@
     "id": "/hotels",
     "title": "hotels",
     "type": "object",
-    "properties": []
+    "properties": [
+      {
+        "id": {
+          "type": "string"
+        }
+      },
+      {
+        "name": {
+          "type": "string"
+        }
+      },
+      {
+        "phone": {
+          "type": "string"
+        }
+      }
+    ]
   },
   {
     "$schema": "https://json-schema.org/draft-04/schema#",
     "id": "/hotels_by_poi",
     "title": "hotels_by_poi",
     "type": "object",
-    "properties": []
+    "properties": [
+      {
+        "hotel_id": {
+          "type": "string"
+        }
+      },
+      {
+        "name": {
+          "type": "string"
+        }
+      },
+      {
+        "phone": {
+          "type": "string"
+        }
+      },
+      {
+        "poi_name": {
+          "type": "string"
+        }
+      }
+    ]
   },
   {
     "$schema": "https://json-schema.org/draft-04/schema#",
     "id": "/pois_by_hotel",
     "title": "pois_by_hotel",
     "type": "object",
-    "properties": []
+    "properties": [
+      {
+        "description": {
+          "type": "string"
+        }
+      },
+      {
+        "hotel_id": {
+          "type": "string"
+        }
+      },
+      {
+        "poi_name": {
+          "type": "string"
+        }
+      }
+    ]
   }
 ]
