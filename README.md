@@ -34,3 +34,8 @@ but to get samples we'd have to traverse tables and find column names with type 
 - Currently, only alpha-numeric-underscore types/tables/column names are allowed
 
 ---
+
+- Json strings, parsed into array, currently throw an error and not getting parsed any further
+
+---
+
