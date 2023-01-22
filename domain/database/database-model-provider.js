@@ -1,7 +1,7 @@
 export class DatabaseModelProvider {
 
     /**
-     * @return {Object | never}
+     * @return {Promise<DatabaseModel> | never}
      * */
     async getDatabaseModel() {
         throw new Error('Getting database model is not implemented');

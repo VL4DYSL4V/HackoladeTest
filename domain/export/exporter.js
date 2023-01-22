@@ -5,7 +5,7 @@ export class Exporter {
 
     /**
      * @param data {DatabaseModel}
-     * @return {void}
+     * @return {Promise<void>}
      */
     async export (data) {
         throw new Error('Export is not supported');

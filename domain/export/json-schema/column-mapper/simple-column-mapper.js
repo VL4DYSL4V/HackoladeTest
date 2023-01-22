@@ -5,12 +5,7 @@ import {JsonSchemaTypes} from "../enums/json-schema-types.js";
 import {NumberConstraint} from "../../../common/enums/number-constraint.js";
 import {Regex} from "../../../common/enums/regex.js";
 
-// https://json-schema.org/understanding-json-schema/reference/numeric.html?highlight=integer
-// https://json-schema.org/understanding-json-schema/reference/conditionals.html?highlight=conditional
-// https://cassandra.apache.org/doc/latest/cassandra/cql/types.html#dates
-// https://www.npmjs.com/package/jsonschema
-// https://regexpattern.com/iso-8601-dates-times/
-// https://docs.datastax.com/en/developer/nodejs-driver/4.6/features/datatypes/
+
 const SimpleModelTypeToJsonSchemaTypeSupplier = Object.freeze({
     [ColumnTypes.UUID]: () => ({
         type: JsonSchemaTypes.STRING,

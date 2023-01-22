@@ -2,7 +2,6 @@ import {ColumnTypes} from "../model/enums/column-type-enum.js";
 import {NestedColumnEntity} from "../model/nested-column-entity.js";
 import {CassandraRegex} from "./enums/CassandraRegex.js";
 
-// CHECK IF EVERYTHING IS CORRECT: https://cassandra.apache.org/doc/latest/cassandra/cql/types.html#native-types
 const SimpleCassandraTypeToModelColumnType = Object.freeze({
     'bigint': ColumnTypes.LONG,
     'boolean': ColumnTypes.BOOLEAN,
@@ -32,7 +31,7 @@ const SampledCassandraTypeToModelColumnType = Object.freeze({
 })
 
 const NestedCassandraTypeToModelColumnType = Object.freeze({
-    // Require samples, can be parsed into other formats
+    // Nested types can contain any other type (including a nested type)
     'list': ColumnTypes.ARRAY,
     'map': ColumnTypes.MAP,
     'set': ColumnTypes.SET,

@@ -11,11 +11,6 @@ import {CustomTypeEntity} from "../model/custom-type-entity.js";
 import {SampledColumnEntity} from "../model/sampled-column-entity.js";
 import {SampleProvider} from "../sample-provider.js";
 
-// https://cswr.github.io/JsonSchema/spec/grammar/
-
-// DESCRIBE KEYSPACES;
-// DESCRIBE KEYSPACE system_schema;
-// DESCRIBE KEYSPACE hotel;
 export class CassandraDatabaseModelProvider extends DatabaseModelProvider {
 
     /**
@@ -127,14 +122,6 @@ export class CassandraDatabaseModelProvider extends DatabaseModelProvider {
     }
 
     /**
-     * @param customType {CustomTypeEntity}
-     * @return {Promise<void>}
-     * */
-    async #addSamplesToCustomTypes(customType) {
-
-    }
-
-    /**
      * @return {Promise<DatabaseModel>}
      * */
     async getDatabaseModel() {
@@ -142,12 +129,8 @@ export class CassandraDatabaseModelProvider extends DatabaseModelProvider {
         const tableProcessingPromises = tables.map(t => this.#enrichTableWithColumns(t));
 
         const customTypes = await this.#getCustomTypes();
-        const customTypesProcessingPromises = customTypes.map(ct => this.#addSamplesToCustomTypes(ct));
 
-        await Promise.all([
-            ...tableProcessingPromises,
-            ...customTypesProcessingPromises,
-        ]);
+        await Promise.all(tableProcessingPromises);
 
         return {
             tables,

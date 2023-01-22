@@ -67,7 +67,7 @@ export class JsonSchemaToFileExporter extends Exporter{
 
     /**
      * @param data {DatabaseModel}
-     * @throws Error if typeof data === 'function'
+     * @throws Error if typeof data !== 'object'
      * @return Promise<Array<Object>>
      */
     async #buildOutObject(data) {

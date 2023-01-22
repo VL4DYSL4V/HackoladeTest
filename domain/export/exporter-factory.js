@@ -12,7 +12,7 @@ export class ExporterFactory {
     static async getExporter(format) {
         switch (format) {
             case ExportFormat.JSON_SCHEMA:
-                return new JsonSchemaToFileExporter(4, ExportConfig.outFilename);
+                return new JsonSchemaToFileExporter(ExportConfig.jsonSchemaDraftVersion, ExportConfig.outFilename);
         }
 
         throw new Error(`Format ${format} is not supported, valid values are: ${

@@ -16,12 +16,16 @@ export const DatabaseConfig = Object.freeze({
 
 export const ExportConfig = Object.freeze({
     // *************************
-    // *    Common config   *
+    // *    Common config      *
     // *************************
     // Allowed values: json_schema
     format: 'json_schema',
     // *************************
-    // *  Output file config   *
+    // *    Output config      *
     // *************************
     outFilename: './result.json',
+    // *************************
+    // *   JSON Schema output  *
+    // *************************
+    jsonSchemaDraftVersion: 4,
 });
